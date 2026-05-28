@@ -1,0 +1,4 @@
+la premiere branch correspond a la creation de la function insert tete
+
+
+la deuxieme branch correspond a la creation de la function insert queue

@@ -34,16 +34,16 @@ typedef struct Node{
     }
 
 
-    void printMenu(){
-        system("cls"); // Sur Windows: system("cls")
+    void printMenu(){ // Sur Windows: system("cls")
         printf("\n╔══════════════════════════════════════════════════════════╗\n");
         printf("║          MANIPULATION DES LISTES CHAÎNÉES                ║\n");
         printf("╚══════════════════════════════════════════════════════════╝\n\n");
         printf("┌─────────────── OPÉRATIONS D'INSERTION ───────────────┐\n");
-        printf("│  1. Insérer au début                                 │\n");
-        printf("│  2. Insérer à la fin                                 │\n");
-        printf("│  3. Insérer à une position                           │\n");
-        printf("│  4. Insérer dans une liste triée                     │\n");
+        printf("│  1. Afficher la liste                                │\n");
+        printf("│  2. Insérer au début                                 │\n");
+        printf("│  3. Insérer à la fin                                 │\n");
+        printf("│  4. Insérer à une position                           │\n");
+        printf("│  5. Insérer dans une liste triée                     │\n");
         printf("└──────────────────────────────────────────────────────┘\n");
         printf("0. Quitter\n");
     }
@@ -62,6 +62,19 @@ typedef struct Node{
         printf("NULL\n");
     }
 
+    void insertfin(Node** head,int val){
+        Node* newNode = createNode(val);
+        if(estVide(*head)){
+            *head = newNode;
+            return;
+        }
+
+        Node* temp = *head;
+        while(temp->nxt != NULL){
+            temp = temp->nxt;
+        }
+        temp->nxt = newNode;
+    }
 
 int main(){
 
@@ -72,15 +85,26 @@ int main(){
         printMenu();
         printf("entrez votre choix :");
         scanf("%d",&choix);
-
         switch(choix){
+
             case 1:
+            afficherList(list);
+            break;
+
+            case 2:
                 printf("entrez la valeur a inserer");
                 scanf("%d",&val);
                 insertTete(&list,val);
                 printf("la liste apres insertion :");
                 afficherList(list);
-                break;
+            break;
+
+            case 3:
+                printf("entrez la valeur a inserer");
+                scanf("%d",&val);
+                insertfin(&list,val);
+                printf("la liste apres insertion :");
+            break;
                 
             default:
                 if (choix != 0) {

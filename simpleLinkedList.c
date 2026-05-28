@@ -76,6 +76,34 @@ typedef struct Node{
         temp->nxt = newNode;
     }
 
+    void insertPos(Node** head,int val,int pos){
+        Node* newNode = createNode(val);
+        Node* tmp = *head;
+        if(pos < 0){
+            printf("Position invalide. La position doit être un entier positif.\n");
+            return;
+        }
+
+        else if(pos == 0){
+            insertTete(head,val);
+            return;
+        }
+
+        for (int i = 0; i < pos-1&& tmp != NULL; i++)
+        {
+            /* code */
+            tmp = tmp->nxt;
+        }
+
+        if(tmp == NULL){
+            printf("Position invalide. La position dépasse la taille de la liste.\n");
+            return;
+        }
+        newNode->nxt = tmp->nxt;
+        tmp->nxt = newNode;
+        
+    }
+
 int main(){
 
     Node* list = NULL;
@@ -95,17 +123,21 @@ int main(){
                 printf("entrez la valeur a inserer");
                 scanf("%d",&val);
                 insertTete(&list,val);
-                printf("la liste apres insertion :");
-                afficherList(list);
             break;
 
             case 3:
                 printf("entrez la valeur a inserer");
                 scanf("%d",&val);
                 insertfin(&list,val);
-                printf("la liste apres insertion :");
             break;
                 
+            case 4:
+                printf("entrez la valeur a inserer");
+                scanf("%d",&val);
+                printf("entrer la position");
+                scanf("%d",&position);
+                insertPos(&list,val,position);
+            break;
             default:
                 if (choix != 0) {
                     printf("Choix invalide. Veuillez réessayer.\n");

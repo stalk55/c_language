@@ -4,33 +4,33 @@
 
 typedef struct Node{
 
-    int var;
+    int data;
     struct Node *nxt;
 
 } Node;
 
 
 
-    bool estVide(Node head){
+    bool estVide(Node* head){
         return head == NULL;
     }
 
-    Node createNode(int val){
-        Node *newNode = (Node*)malloc(sizeof(Node));
+    Node* createNode(int val){
+        Node* newNode = (Node*)malloc(sizeof(Node));
         if (newNode == NULL)
         {
             fprintf(stderr, "Erreur : impossible de créer un nouveau nœud\n");
             exit(EXIT_FAILURE);
         }
-        newNode->var = val;
+        newNode->data = val;
         newNode->nxt = NULL;
-        return *newNode;
+        return newNode;
     }
 
-    Node insertTete(Node head,int val){
-        Node newNode = createNode(val);
-        newNode.nxt = &head;
-        return newNode;
+    void insertTete(Node** head,int val){
+        Node* newNode = createNode(val);
+        newNode->nxt = *head;
+        *head = newNode;
     }
 
 
@@ -48,36 +48,47 @@ typedef struct Node{
         printf("0. Quitter\n");
     }
 
-    void afficherList(Node *head){
-        Node *temp = head;
+    void afficherList(Node* head){
+        if(estVide(head)){
+            printf("la liste est vide");
+            return;
+        }
+        Node* temp = head;
+        printf("[HEAD] ");
         while(temp != NULL){
-            printf("%d",temp->var);
+            printf("%d ->",temp->data);
             temp = temp->nxt;
         }
-
-
-
+        printf("NULL\n");
     }
 
 
 int main(){
 
-    Node head = NULL;
+    Node* list = NULL;
     int choix ,val ,position;
 
     do{
         printMenu();
         printf("entrez votre choix :");
         scanf("%d",&choix);
+
         switch(choix){
             case 1:
                 printf("entrez la valeur a inserer");
                 scanf("%d",&val);
-                insertTete(head,val);
+                insertTete(&list,val);
                 printf("la liste apres insertion :");
-                afficherList(&head);
+                afficherList(list);
+                break;
+                
+            default:
+                if (choix != 0) {
+                    printf("Choix invalide. Veuillez réessayer.\n");
+                }
+                break;
         }
-    }
+    }while(choix != 0);
     
-
+    return 0;
 }

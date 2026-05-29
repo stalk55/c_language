@@ -45,6 +45,13 @@ typedef struct Node{
         printf("│  4. Insérer à une position                           │\n");
         printf("│  5. Insérer dans une liste triée                     │\n");
         printf("└──────────────────────────────────────────────────────┘\n");
+
+        printf("┌─────────────── OPÉRATIONS DE SUPPRESSION ────────────┐\n");
+        printf("│  6. Supprimer au début                               │\n");
+        printf("│  7. Supprimer à la fin                               │\n");
+        printf("│  8. Supprimer par valeur                             │\n");
+        printf("│  9. Supprimer à une position                         │\n");
+        printf("└──────────────────────────────────────────────────────┘\n");
         printf("0. Quitter\n");
     }
 
@@ -118,6 +125,16 @@ typedef struct Node{
         current->nxt = newNode;
     }
 
+    void supprimeTet(Node** head){
+        if(estVide(*head)){
+            printf("la liste est vide");
+            return;
+        }
+        Node* tmp = *head;
+        *head = (*head)->nxt;
+        free(tmp);
+    }
+
 int main(){
 
     Node* list = NULL;
@@ -152,10 +169,16 @@ int main(){
                 scanf("%d",&position);
                 insertPos(&list,val,position);
             break;
+
             case 5:
                 printf("entrez la avleur a inserer ");
                 scanf("%d",&val);
                 insertTrie(&list,val);
+            break;
+
+            case 6:
+                supprimeTet(&list);
+                afficherList(list);
             break;
             default:
                 if (choix != 0) {

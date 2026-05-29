@@ -153,7 +153,55 @@
         tmp->nxt = NULL;
 
     }
-    
+
+    void suprimParValeur(Node** head,int val){
+        if(estVide(*head)){
+            printf("List vide");
+            return;
+        }
+        if((*head)->data == val){
+            supprimeTet(head);
+            printf("valeur %d supprimé\n",val);
+            return;
+        }
+
+        Node* tmp = *head;
+        while(tmp->nxt != NULL && tmp->nxt->data != val){
+            tmp = tmp->nxt;
+        }
+        if(tmp->nxt == NULL){
+            printf("valeur %d nexiste pas",val);
+            return;
+        }
+
+        Node* toDelete = tmp->nxt;
+        tmp->nxt = tmp->nxt->nxt;
+        free(toDelete);
+
+
+    }
+
+    void deleteAtPosition(Node** head, int position) {
+        if (*head == NULL || position < 0) return;
+        
+        if (position == 0) {
+            supprimeTet(head);
+            return;
+        }
+        
+        Node* temp = *head;
+        for (int i = 0; i < position - 1 && temp != NULL; i++)
+            temp = temp->nxt;
+        
+        if (temp == NULL || temp->nxt == NULL) {
+            printf("✗ Position hors limites!\n");
+            return;
+        }
+        
+        Node* toDelete = temp->nxt;
+        temp->nxt = temp->nxt->nxt;
+        free(toDelete);
+    }
 
 int main(){
 
@@ -206,6 +254,19 @@ int main(){
                 afficherList(list);
             break;
 
+            case 8:
+                printf("entrez la valeur a supprimer");
+                scanf("%d",&val);
+                suprimParValeur(&list,val);
+                afficherList(list);
+            break;
+
+            case 9:
+                printf("entrer la position a supprimer");
+                scanf("%d",&position);
+                deleteAtPosition(&list,position);
+                afficherList(list);
+            break;
 
             default:
                 if (choix != 0) {

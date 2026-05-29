@@ -103,6 +103,20 @@ typedef struct Node{
         tmp->nxt = newNode;
         
     }
+    void insertTrie(Node** head,int val){
+        Node* newNode = createNode(val);
+        if(*head == NULL || (*head)->data >= val){
+            newNode->nxt = *head;
+            *head = newNode;
+            return;
+        }
+        Node* current = *head;
+        while(current->nxt != NULL && current->nxt->data < val){
+            current = current->nxt;
+        }
+        newNode->nxt = current->nxt;
+        current->nxt = newNode;
+    }
 
 int main(){
 
@@ -137,6 +151,11 @@ int main(){
                 printf("entrer la position");
                 scanf("%d",&position);
                 insertPos(&list,val,position);
+            break;
+            case 5:
+                printf("entrez la avleur a inserer ");
+                scanf("%d",&val);
+                insertTrie(&list,val);
             break;
             default:
                 if (choix != 0) {

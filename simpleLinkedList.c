@@ -2,12 +2,12 @@
 #include<stdlib.h>
 #include<stdbool.h>
 
-typedef struct Node{
+    typedef struct Node{
 
-    int data;
-    struct Node *nxt;
+        int data;
+        struct Node *nxt;
 
-} Node;
+    } Node;
 
 
 
@@ -135,6 +135,26 @@ typedef struct Node{
         free(tmp);
     }
 
+    void supprimFin(Node** head){
+        if(estVide(*head)){
+            printf("la liste est vide");
+            return;
+        }
+        if((*head)->nxt == NULL){
+            free(*head);
+            *head = NULL;
+            return;
+        }
+        Node* tmp = *head;
+        while(tmp->nxt->nxt != NULL){
+            tmp = tmp->nxt;
+        }
+        free(tmp->nxt);
+        tmp->nxt = NULL;
+
+    }
+    
+
 int main(){
 
     Node* list = NULL;
@@ -180,6 +200,13 @@ int main(){
                 supprimeTet(&list);
                 afficherList(list);
             break;
+
+            case 7:
+                supprimFin(&list);
+                afficherList(list);
+            break;
+
+
             default:
                 if (choix != 0) {
                     printf("Choix invalide. Veuillez réessayer.\n");
